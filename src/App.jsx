@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './LoginScreen';
 import AppRocket from './AppRocket';
 import RocketPost from './RocketPost';
+import SubscribScreen from './SubscribScreen';
 
 function HomeScreen({navigation}) {
   return (
@@ -17,6 +18,7 @@ function HomeScreen({navigation}) {
       <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
       <Button title="Rocket" onPress={() => navigation.navigate('appRocket')} />
       <Button title="rocketPost" onPress={() => navigation.navigate('rocketPost')} />
+      <Button title="Register" onPress={() => navigation.navigate('Register')} />
     </View>
   );
 }
@@ -54,6 +56,7 @@ const YourApp = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="appRocket" component={AppRocket} />
         <Stack.Screen name="rocketPost" component={RocketPost} />
+        <Stack.Screen name="Register" component={SubscribScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
