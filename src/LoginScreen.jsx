@@ -1,42 +1,46 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, TextInput, Button} from 'react-native';
-import axios from 'axios';
+import {useEffect, useState} from 'react';
 
 const LoginScreen = ({navigation}) => {
-  const [text, onChangeText] = React.useState('');
-  const [response, setResponse] = React.useState([]);
-
   const [login, setUser] = React.useState({
-    email: '',
-    password: '',
+    email: 'Gilles15@Georges.fr',
+    password: 'Gilles15@Georges.fr',
   });
+
+  const config = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
   handleEmail = text => {
     setUser({...login, email: text});
   };
   handlePassword = text => {
-    setUser({ ...login, password: text});
+    setUser({...login, password: text});
   };
 
-  const baseUrl = 'https://reqres.in';
+  const myApi = 'http://192.168.63.180:8000/auth';
 
-  const dataGet = () => {
-    // Invoking get method to perform a GET request
-    axios.get(`${baseUrl}/api/users/${text}`).then(response => {
-      setResponse(response.data);
-    });
+  useEffect(() => {}, []);
 
-    console.log(`${baseUrl}/api/users/${text}`);
+  const postLogin = async () => {
+    console.log('je test');
+
+    await fetch(myApi, {
+      method: 'POST',
+      headers: config,
+      body: JSON.stringify(login),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error.toJSON()));
   };
-
-  const loginUser = () => {
-    
-  }
 
   return (
     <SafeAreaView>
       <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="la data" onPress={() => console.log('test')} />
+      <Button title="data test" onPress={() => postLogin()} />
       <TextInput
         placeholder="Email"
         style={styles.input}
