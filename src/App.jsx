@@ -1,12 +1,12 @@
-
 import * as React from 'react';
-import {Button, View, Text} from 'react-native';
+import {Button, View, Text, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './LoginScreen';
 import AppRocket from './AppRocket';
 import RocketPost from './RocketPost';
 import SubscribScreen from './SubscribScreen';
+import Header from './template/Header';
 
 function HomeScreen({navigation}) {
   return (
@@ -16,10 +16,19 @@ function HomeScreen({navigation}) {
         title="Go to Details"
         onPress={() => navigation.navigate('Details')}
       />
-      <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
+      <Button
+        title="Go to Login"
+        onPress={() => navigation.navigate('Login')}
+      />
       <Button title="Rocket" onPress={() => navigation.navigate('appRocket')} />
-      <Button title="rocketPost" onPress={() => navigation.navigate('rocketPost')} />
-      <Button title="Register" onPress={() => navigation.navigate('Register')} />
+      <Button
+        title="rocketPost"
+        onPress={() => navigation.navigate('rocketPost')}
+      />
+      <Button
+        title="Register"
+        onPress={() => navigation.navigate('Register')}
+      />
     </View>
   );
 }
@@ -42,16 +51,37 @@ function DetailsScreen({navigation}) {
   );
 }
 
+function LogoTitle() {
+  return (
+    <Image
+      style={{width: 50, height: 50}}
+      source={require('./logo-weride.webp')}
+    />
+  );
+}
+//  source={require('../../public/images/logeWiride.png')}
 const Stack = createNativeStackNavigator();
 
 const YourApp = () => {
+  const ref = React.useRef(null);
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={ref}>
+      <Header
+        actionConnexion={() => ref.current && ref.current.navigate('Login')}
+        actionInscription={() =>
+          ref.current && ref.current.navigate('Register')
+        }
+        actionResetPage={() =>
+          ref.current && ref.current.navigate('Home')}
+      />
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{title: 'Overview'}}
+          options={{
+            headerTitle: props => <LogoTitle {...props} />,
+            headerRight: () => <Text>Connexion</Text>,
+          }}
         />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
@@ -64,4 +94,3 @@ const YourApp = () => {
 };
 
 export default YourApp;
-
