@@ -1,9 +1,11 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, TextInput, Button} from 'react-native';
+import {SafeAreaView, Button} from 'react-native';
 import {useEffect, useState} from 'react';
+import Input from '../../components/Input';
 
 const LoginScreen = ({navigation}) => {
-  const [login, setUser] = React.useState({
+
+  const [login, setUser] = useState({
     email: 'Gilles15@Georges.fr',
     password: 'Gilles15@Georges.fr',
   });
@@ -39,31 +41,20 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="data test" onPress={() => postLogin()} />
-      <TextInput
+      <Input
         placeholder="Email"
-        style={styles.input}
         onChangeText={handleEmail}
         value={login.email}
       />
-      <TextInput
+      <Input
         placeholder="password"
-        style={styles.input}
         onChangeText={handlePassword}
         value={login.password}
       />
+      <Button title="Connexion" onPress={() => postLogin()} />
     </SafeAreaView>
+
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
 
 export default LoginScreen;

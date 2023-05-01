@@ -1,9 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, TextInput, Button} from 'react-native';
+import {SafeAreaView, Button, View} from 'react-native';
 import {useState} from 'react';
+import Input from '../../components/Input';
 
 const SubscribScreen = ({navigation}) => {
-    
   const [data, setUser] = useState({
     email: '',
     password: '',
@@ -35,7 +35,6 @@ const SubscribScreen = ({navigation}) => {
 
   const myApi = 'http://172.18.183.61:8000/api/users';
 
-
   const Register = async () => {
     console.log('je test');
     console.log(data);
@@ -51,49 +50,38 @@ const SubscribScreen = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="data test" onPress={() => Register()} />
-      <TextInput
-        placeholder="Email"
-        style={styles.input}
-        onChangeText={handleEmail}
-        value={data.email}
-      />
-      <TextInput
-        placeholder="password"
-        style={styles.input}
-        onChangeText={handlePassword}
-        value={data.password}
-      />
-       <TextInput
-        placeholder="firstname"
-        style={styles.input}
-        onChangeText={handleFirstName}
-        value={data.firstname}
-      />
-       <TextInput
-        placeholder="lastname"
-        style={styles.input}
-        onChangeText={handleLastName}
-        value={data.lastname}
-      />
-       <TextInput
-        placeholder="pseudo"
-        style={styles.input}
-        onChangeText={handlePseudo}
-        value={data.pseudo}
-      />
+      <View>
+        <Input
+          placeholder="Email"
+          onChangeText={handleEmail}
+          value={data.email}
+        />
+        <Input
+          placeholder="password"
+          onChangeText={handlePassword}
+          value={data.password}
+        />
+        <Input
+          placeholder="firstname"
+          onChangeText={handleFirstName}
+          value={data.firstname}
+        />
+        <Input
+          placeholder="lastname"
+          onChangeText={handleLastName}
+          value={data.lastname}
+        />
+        <Input
+          placeholder="pseudo"
+          onChangeText={handlePseudo}
+          value={data.pseudo}
+        />
+        <Button title="S'inscrice" onPress={() => Register()} />
+      </View>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
+
 
 export default SubscribScreen;
