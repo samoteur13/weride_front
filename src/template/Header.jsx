@@ -16,7 +16,7 @@ const Header = props => {
       >
         <Image
           style={{width: 50, height: 50}}
-          source={require('../logo-weride.webp')}
+          source={require('../images/logo-weride.webp')}
         />
       </TouchableNativeFeedback>
       <View

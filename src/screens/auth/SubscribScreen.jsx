@@ -33,7 +33,7 @@ const SubscribScreen = ({navigation}) => {
     setUser({...data, pseudo: text});
   };
 
-  const myApi = 'http://192.168.63.180:8000/api/users';
+  const myApi = 'http://172.18.183.61:8000/api/users';
 
 
   const Register = async () => {
