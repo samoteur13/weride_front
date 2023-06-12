@@ -2,9 +2,9 @@ import React from 'react';
 import {SafeAreaView, Button} from 'react-native';
 import {useEffect, useState} from 'react';
 import Input from '../../components/Input';
+import {urlApi} from '../../../Constants';
 
 const LoginScreen = ({navigation}) => {
-
   const [login, setUser] = useState({
     email: 'Gilles15@Georges.fr',
     password: 'Gilles15@Georges.fr',
@@ -22,13 +22,11 @@ const LoginScreen = ({navigation}) => {
     setUser({...login, password: text});
   };
 
-  const myApi = 'http://192.168.63.180:8000/auth';
+  const myApi = `${urlApi}auth`;
 
   useEffect(() => {}, []);
 
   const postLogin = async () => {
-    console.log('je test');
-
     await fetch(myApi, {
       method: 'POST',
       headers: config,
@@ -36,7 +34,7 @@ const LoginScreen = ({navigation}) => {
     })
       .then(response => response.json())
       .then(data => console.log(data))
-      .catch(error => console.error(error.toJSON()));
+      .catch(error => console.log(error.toJSON()));
   };
 
   return (
@@ -53,7 +51,6 @@ const LoginScreen = ({navigation}) => {
       />
       <Button title="Connexion" onPress={() => postLogin()} />
     </SafeAreaView>
-
   );
 };
 

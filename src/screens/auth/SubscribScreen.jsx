@@ -2,6 +2,7 @@ import React from 'react';
 import {SafeAreaView, Button, View} from 'react-native';
 import {useState} from 'react';
 import Input from '../../components/Input';
+import { urlApi } from '../../../Constants';
 
 const SubscribScreen = ({navigation}) => {
   const [data, setUser] = useState({
@@ -33,11 +34,9 @@ const SubscribScreen = ({navigation}) => {
     setUser({...data, pseudo: text});
   };
 
-  const myApi = 'http://172.18.183.61:8000/api/users';
+  const myApi = `${urlApi}api/users`;
 
   const Register = async () => {
-    console.log('je test');
-    console.log(data);
     await fetch(myApi, {
       method: 'POST',
       headers: config,
@@ -81,7 +80,5 @@ const SubscribScreen = ({navigation}) => {
     </SafeAreaView>
   );
 };
-
-
 
 export default SubscribScreen;
