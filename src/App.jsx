@@ -27,7 +27,7 @@ const YourApp = () => {
             ref.current && ref.current.navigate('HomePage')
           }
         />
-        <Stack.Navigator initialRouteName="counter">
+        <Stack.Navigator initialRouteName="HomePage">
           <Stack.Screen name="HomePage" component={HomePage} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={SubscribScreen} />
