@@ -6,8 +6,8 @@ import {urlApi} from '../../../Constants';
 
 const LoginScreen = ({navigation}) => {
   const [login, setUser] = useState({
-    email: 'Gilles15@Georges.fr',
-    password: 'Gilles15@Georges.fr',
+    email: 'leon99@roux.com',
+    password: 'leon99@roux.com',
   });
 
   const config = {
@@ -27,14 +27,17 @@ const LoginScreen = ({navigation}) => {
   useEffect(() => {}, []);
 
   const postLogin = async () => {
-    await fetch(myApi, {
-      method: 'POST',
-      headers: config,
-      body: JSON.stringify(login),
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.log(error.toJSON()));
+    try {
+      const response = await fetch(myApi, {
+        method: 'POST',
+        headers: config,
+        body: JSON.stringify(login),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
