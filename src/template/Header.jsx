@@ -1,38 +1,27 @@
 import React from 'react';
-import {View, Text, Image, TouchableNativeFeedback} from 'react-native';
+import { useSelector} from 'react-redux';
+import { NavBarDisconect } from '../components/layout/NavBarDisconect';
+import { NavBarConnect } from '../components/layout/NavBarConnect';
+import { useConnect } from '../tools/useConnect';
+
 
 const Header = props => {
+  useConnect()
 
+  const tokenStore = useSelector((state) => state.token.value)
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 10,
-      }}>
-      <TouchableNativeFeedback
-        onPress={props.actionResetPage}
-      >
-        <Image
-          style={{width: 50, height: 50}}
-          source={require('../images/logo-weride.webp')}
+    <>
+      {tokenStore ? 
+        <NavBarConnect/>
+        :
+        <NavBarDisconect
+          actionResetPage={props.actionResetPage}
+          actionConnexion={props.actionConnexion}
+          actionInscription={props.actionInscription}
         />
-      </TouchableNativeFeedback>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          padding: 10,
-        }}>
-        <Text style={{margin: 10}} onPress={props.actionConnexion}>
-          Connexion
-        </Text>
-        <Text style={{margin: 10}} onPress={props.actionInscription}>
-          Inscription
-        </Text>
-      </View>
-    </View>
+      }
+    </>
   );
 };
 

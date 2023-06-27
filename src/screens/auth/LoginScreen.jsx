@@ -1,14 +1,21 @@
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import Input from '../../components/input/Input';
 import {SafeAreaView, Button} from 'react-native';
 import {useEffect, useState} from 'react';
-import Input from '../../components/Input';
 import {urlApi} from '../../../Constants';
+import { useDispatch , useSelector} from 'react-redux';
+import { addToken } from '../../redux/slice/tokenSlice';
 
 const LoginScreen = ({navigation}) => {
+ 
+
+  const dispatch = useDispatch();
   const [login, setUser] = useState({
     email: 'leon99@roux.com',
     password: 'leon99@roux.com',
   });
+  const [token, setToken] = useState('');
 
   const config = {
     Accept: 'application/json',
@@ -24,8 +31,13 @@ const LoginScreen = ({navigation}) => {
 
   const myApi = `${urlApi}auth`;
 
-  useEffect(() => {}, []);
-
+  useEffect(() => {
+    
+    if (token) {
+      dispatch(addToken(token))
+    }
+  }, [token]);
+  
   const postLogin = async () => {
     try {
       const response = await fetch(myApi, {
@@ -34,7 +46,9 @@ const LoginScreen = ({navigation}) => {
         body: JSON.stringify(login),
       });
       const data = await response.json();
-      console.log(data);
+      setToken(data.token)
+      await AsyncStorage.setItem('token', data.token);
+
     } catch (error) {
       console.log(error);
     }

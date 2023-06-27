@@ -7,7 +7,7 @@ import Header from './template/Header';
 import HomePage from './screens/home/HomePage';
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
-import { Counter } from './screens/counter/Counter';
+import { ProfileUser } from './screens/user/profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,7 +31,7 @@ const YourApp = () => {
           <Stack.Screen name="HomePage" component={HomePage} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={SubscribScreen} />
-          <Stack.Screen name="counter" component={Counter} />
+          <Stack.Screen name="profile" component={ProfileUser} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
