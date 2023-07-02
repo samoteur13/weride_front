@@ -1,19 +1,15 @@
-import React from "react";
-import { Text, View , TouchableNativeFeedback, Image} from "react-native";
-
+import React from 'react';
+import {Text, View, TouchableNativeFeedback, Image} from 'react-native';
 
 export const NavBarDisconect = props => {
-
-    return (
-      <View
+  return (
+    <View
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
       }}>
-      <TouchableNativeFeedback
-        onPress={props.actionResetPage}
-      >
+      <TouchableNativeFeedback onPress={props.actionResetPage}>
         <Image
           style={{width: 50, height: 50}}
           source={require('../../images/logo-weride.webp')}
@@ -33,5 +29,5 @@ export const NavBarDisconect = props => {
         </Text>
       </View>
     </View>
-    )
-}
+  );
+};
