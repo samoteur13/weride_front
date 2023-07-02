@@ -2,7 +2,7 @@ import React from 'react';
 import {SafeAreaView, Button, View} from 'react-native';
 import {useState} from 'react';
 import Input from '../../components/input/Input';
-import { urlApi } from '../../../Constants';
+import { urlApi } from '../../utils/Constants';
 
 const SubscribScreen = ({navigation}) => {
   const [data, setUser] = useState({

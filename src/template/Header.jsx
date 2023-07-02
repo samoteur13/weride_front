@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector} from 'react-redux';
 import { NavBarDisconect } from '../components/layout/NavBarDisconect';
 import { NavBarConnect } from '../components/layout/NavBarConnect';
-import { useConnect } from '../tools/useConnect';
+import { useConnect } from '../services/useConnect';
 
 
 const Header = props => {

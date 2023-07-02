@@ -3,15 +3,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Input from '../../components/input/Input';
 import {SafeAreaView, Button} from 'react-native';
 import {useEffect, useState} from 'react';
-import {urlApi} from '../../../Constants';
+import {urlApi} from '../../utils/Constants';
 import {useDispatch} from 'react-redux';
 import {addToken} from '../../redux/slice/tokenSlice';
 
 const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [login, setUser] = useState({
-    email: 'paul.roger@louis.com',
-    password: 'paul.roger@louis.com',
+    email: 'leon99@roux.com',
+    password: 'leon99@roux.com',
   });
   const [token, setToken] = useState('');
 

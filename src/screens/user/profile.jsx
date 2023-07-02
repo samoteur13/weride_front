@@ -9,7 +9,8 @@ import {
   NativeModules,
 } from 'react-native';
 import {useSelector} from 'react-redux';
-import {urlApi} from '../../../Constants';
+import {urlApi} from '../../utils/Constants';
+import {MotoCard} from '../../components/cards/MotoCard';
 
 export const ProfileUser = ({navigation}) => {
   const tokenStore = useSelector(state => state.token.value);
@@ -41,46 +42,11 @@ export const ProfileUser = ({navigation}) => {
 
   return (
     <ScrollView>
-      <Button title="Voir la data" onPress={() => console.log(userData)} />
-      <View style={styles.middle}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'baseline',
-            padding: 10,
-            borderBottomWidth: 1,
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>Moto </Text>
-          <Button
-            title="ajouter"
-            onPress={() => console.log('ajout de moto')}
-          />
-          <Button
-            title="modifier"
-            onPress={() => console.log('modifier moto')}
-          />
-        </View>
-        {userData.bikes &&
-          Array.isArray(userData.bikes) &&
-          userData.bikes.map((bike, index) => {
-            return (
-              <View
-                key={index}
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image
-                  style={{width: 200, height: 100}}
-                  source={{
-                    uri: bike.img_bike,
-                  }}
-                />
-                <Text>
-                  {bike.name} {bike.power}
-                </Text>
-              </View>
-            );
-          })}
-      </View>
+      <Button
+        title="Voir la data"
+        onPress={() => console.log(userData.bikes)}
+      />
+      <MotoCard bikes={userData.bikes} />
     </ScrollView>
   );
 };
