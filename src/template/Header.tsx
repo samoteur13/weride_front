@@ -1,19 +1,21 @@
 import React from 'react';
 import { useSelector} from 'react-redux';
-import { NavBarDisconect } from '../components/layout/NavBarDisconect';
-import { NavBarConnect } from '../components/layout/NavBarConnect';
-import { useConnect } from '../services/useConnect';
+import { NavBarDisconect } from './NavBar/NavBarDisconect';
+import { NavBarConnect } from './NavBar/NavBarConnect';
+import { useConnect } from '../services/AuthService';
 
 
-const Header = props => {
+const Header = (props: any) => {
   useConnect()
 
-  const tokenStore = useSelector((state) => state.token.value)
+  const tokenStore = useSelector((state: any) => state.token.value)
 
   return (
     <>
       {tokenStore ? 
-        <NavBarConnect/>
+        <NavBarConnect
+          actionProfil={props.actionProfil}
+        />
         :
         <NavBarDisconect
           actionResetPage={props.actionResetPage}

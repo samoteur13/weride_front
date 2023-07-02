@@ -4,7 +4,7 @@ import {useState} from 'react';
 import Input from '../../components/input/Input';
 import { urlApi } from '../../utils/Constants';
 
-const SubscribScreen = ({navigation}) => {
+const SubscribScreen = () => {
   const [data, setUser] = useState({
     email: '',
     password: '',
@@ -18,19 +18,19 @@ const SubscribScreen = ({navigation}) => {
     'Content-Type': 'application/json',
   };
 
-  handleEmail = text => {
+  const handleEmail = (text : string) => {
     setUser({...data, email: text});
   };
-  handlePassword = text => {
+  const handlePassword = (text: string) => {
     setUser({...data, password: text});
   };
-  handleFirstName = text => {
+  const handleFirstName = (text: string) => {
     setUser({...data, firstname: text});
   };
-  handleLastName = text => {
+  const handleLastName = (text: string) => {
     setUser({...data, lastname: text});
   };
-  handlePseudo = text => {
+  const handlePseudo = (text: string) => {
     setUser({...data, pseudo: text});
   };
 

@@ -1,12 +1,11 @@
 import React from 'react';
 import {Text, View, Button, Image} from 'react-native';
-import styleCards from './styleCards';
-import {bikeInterface} from '../../interfaces/bikeInterface/bikeInterface';
+import {cardStyle} from './cardStyle';
+import {bikeInterface} from '../../interfaces/bike/bikeInterface';
 
 export const MotoCard = ({bikes}: {bikes: bikeInterface[]}) => {
-  console.log(bikes);
   return (
-    <View style={styleCards.middle}>
+    <View style={cardStyle.middle}>
       <View
         style={{
           flexDirection: 'row',
