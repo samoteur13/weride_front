@@ -7,7 +7,7 @@ import {urlApi} from '../../utils/Constants';
 import {useDispatch} from 'react-redux';
 import {addToken} from '../../redux/slice/tokenSlice';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = () => {
   const dispatch = useDispatch();
   const [login, setUser] = useState({
     email: 'leon99@roux.com',
@@ -20,10 +20,10 @@ const LoginScreen = ({navigation}) => {
     'Content-Type': 'application/json',
   };
 
-  handleEmail = text => {
+  const handleEmail = (text: string) => {
     setUser({...login, email: text});
   };
-  handlePassword = text => {
+  const handlePassword = (text: string) => {
     setUser({...login, password: text});
   };
 

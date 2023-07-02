@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
-const styleCards = StyleSheet.create({
+export const cardStyle = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
@@ -29,5 +29,3 @@ const styleCards = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
 });
-
-export default styleCards;

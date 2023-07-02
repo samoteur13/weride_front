@@ -7,14 +7,12 @@ import Header from './template/Header';
 import HomePage from './screens/home/HomePage';
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
-import { ProfileUser } from './screens/user/profile';
+import {ProfileUser} from './screens/user/profile';
 
 const Stack = createNativeStackNavigator();
 
-const image = {uri: 'https://reactjs.org/logo-og.png'};
-
-const YourApp = () => {
-  const ref = React.useRef(null);
+const App = () => {
+  const ref = React.useRef<any>(null);
   return (
     <Provider store={store}>
       <NavigationContainer ref={ref}>
@@ -26,16 +24,17 @@ const YourApp = () => {
           actionResetPage={() =>
             ref.current && ref.current.navigate('HomePage')
           }
+          actionProfil={() => ref.current && ref.current.navigate('profil')}
         />
         <Stack.Navigator initialRouteName="HomePage">
           <Stack.Screen name="HomePage" component={HomePage} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={SubscribScreen} />
-          <Stack.Screen name="profile" component={ProfileUser} />
+          <Stack.Screen name="profil" component={ProfileUser} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
 };
 
-export default YourApp;
+export default App;

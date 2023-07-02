@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, TouchableNativeFeedback, Image} from 'react-native';
 
-export const NavBarDisconect = props => {
+export const NavBarDisconect = (props: any) => {
   return (
     <View
       style={{
@@ -12,7 +12,7 @@ export const NavBarDisconect = props => {
       <TouchableNativeFeedback onPress={props.actionResetPage}>
         <Image
           style={{width: 50, height: 50}}
-          source={require('../../images/logo-weride.webp')}
+          source={require('../../assets/images/logo-weride.webp')}
         />
       </TouchableNativeFeedback>
       <View
