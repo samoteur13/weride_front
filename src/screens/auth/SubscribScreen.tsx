@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {SafeAreaView, Button, View} from 'react-native';
 import {useState} from 'react';
 import Input from '../../components/input/Input';
@@ -40,6 +40,12 @@ const SubscribScreen = () => {
   const Register = async () => {
     setSend(true)
   };
+
+  useEffect(() => { 
+    if (send === true) {
+      setSend(false)
+    }
+  },[send])
 
   return (
     <SafeAreaView>
