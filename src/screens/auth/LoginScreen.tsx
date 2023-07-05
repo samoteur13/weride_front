@@ -10,8 +10,8 @@ import {useFetchData} from '../../hooks/useFetchData';
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const [login, setUser] = useState({
-    email: 'paul.roger@louis.com',
-    password: 'paul.roger@louis.com',
+    email: 'leon99@roux.com',
+    password: 'leon99@roux.com',
   });
   const [send, setSend] = useState(false);
   const loginUser = useFetchData({

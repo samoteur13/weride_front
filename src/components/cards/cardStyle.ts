@@ -16,10 +16,11 @@ export const cardStyle = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   middle: {
-    margin: 0.9,
+    margin: 5,
     flex: 0.3,
     backgroundColor: 'white',
-    borderWidth: 1,
+    borderWidth: 0.2,
+    borderRadius: 5,
   },
   bottom: {
     flex: 0.3,

@@ -8,6 +8,7 @@ import HomePage from './screens/home/HomePage';
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
 import {ProfileUser} from './screens/user/profile';
+import { BASES_COLORS } from './styles/color';
 
 const Stack = createNativeStackNavigator();
 
