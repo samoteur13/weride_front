@@ -3,22 +3,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Input from '../../components/input/Input';
 import {SafeAreaView, Button} from 'react-native';
 import {useEffect, useState} from 'react';
-import {urlApi} from '../../utils/Constants';
 import {useDispatch} from 'react-redux';
 import {addToken} from '../../redux/slice/tokenSlice';
+import {useFetchData} from '../../hooks/useFetchData';
 
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const [login, setUser] = useState({
-    email: 'leon99@roux.com',
-    password: 'leon99@roux.com',
+    email: 'paul.roger@louis.com',
+    password: 'paul.roger@louis.com',
   });
-  const [token, setToken] = useState('');
-
-  const config = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
+  const [send, setSend] = useState(false);
+  const loginUser = useFetchData({
+    url: 'auth',
+    method: 'POST',
+    dataSend: login,
+    send: send,
+  });
 
   const handleEmail = (text: string) => {
     setUser({...login, email: text});
@@ -27,28 +28,22 @@ const LoginScreen = () => {
     setUser({...login, password: text});
   };
 
-  const myApi = `${urlApi}auth`;
-
   useEffect(() => {
-    if (token) {
-      dispatch(addToken(token));
+    if (loginUser.isLoading) {
+      dispatch(addToken(loginUser.apiData.token));
+      AsyncStorage.setItem('token', loginUser.apiData.token);
     }
-  }, [token]);
+  }, [loginUser.isLoading]);
 
   const postLogin = async () => {
-    try {
-      const response = await fetch(myApi, {
-        method: 'POST',
-        headers: config,
-        body: JSON.stringify(login),
-      });
-      const data = await response.json();
-      setToken(data.token);
-      await AsyncStorage.setItem('token', data.token);
-    } catch (error) {
-      console.log(error);
-    }
+    setSend(true);
   };
+
+  useEffect(() => {
+    if (send === true) {
+      setSend(false);
+    }
+  }, [send]);
 
   return (
     <SafeAreaView>

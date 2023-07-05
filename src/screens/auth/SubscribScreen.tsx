@@ -2,49 +2,43 @@ import React from 'react';
 import {SafeAreaView, Button, View} from 'react-native';
 import {useState} from 'react';
 import Input from '../../components/input/Input';
-import { urlApi } from '../../utils/Constants';
+import { useFetchData } from '../../hooks/useFetchData';
 
 const SubscribScreen = () => {
-  const [data, setUser] = useState({
+  const [user, setUser] = useState({
     email: '',
     password: '',
     firstname: '',
     lastname: '',
     pseudo: '',
   });
+  const [send, setSend] = useState(false)
 
-  const config = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
+  const postUser = useFetchData({
+    url:'api/users',
+    method:'POST',
+    dataSend: user,
+    send: send
+  })
 
   const handleEmail = (text : string) => {
-    setUser({...data, email: text});
+    setUser({...user, email: text});
   };
   const handlePassword = (text: string) => {
-    setUser({...data, password: text});
+    setUser({...user, password: text});
   };
   const handleFirstName = (text: string) => {
-    setUser({...data, firstname: text});
+    setUser({...user, firstname: text});
   };
   const handleLastName = (text: string) => {
-    setUser({...data, lastname: text});
+    setUser({...user, lastname: text});
   };
   const handlePseudo = (text: string) => {
-    setUser({...data, pseudo: text});
+    setUser({...user, pseudo: text});
   };
 
-  const myApi = `${urlApi}api/users`;
-
   const Register = async () => {
-    await fetch(myApi, {
-      method: 'POST',
-      headers: config,
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error.toJSON()));
+    setSend(true)
   };
 
   return (
@@ -53,27 +47,27 @@ const SubscribScreen = () => {
         <Input
           placeholder="Email"
           onChangeText={handleEmail}
-          value={data.email}
+          value={user.email}
         />
         <Input
           placeholder="password"
           onChangeText={handlePassword}
-          value={data.password}
+          value={user.password}
         />
         <Input
           placeholder="firstname"
           onChangeText={handleFirstName}
-          value={data.firstname}
+          value={user.firstname}
         />
         <Input
           placeholder="lastname"
           onChangeText={handleLastName}
-          value={data.lastname}
+          value={user.lastname}
         />
         <Input
           placeholder="pseudo"
           onChangeText={handlePseudo}
-          value={data.pseudo}
+          value={user.pseudo}
         />
         <Button title="S'inscrice" onPress={() => Register()} />
       </View>
