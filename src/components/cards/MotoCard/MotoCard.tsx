@@ -1,7 +1,8 @@
 import React from 'react';
 import {Text, View, Button, Image} from 'react-native';
-import {cardStyle} from './cardStyle';
-import {bikeInterface} from '../../interfaces/bike/bikeInterface';
+import {cardStyle} from '../cardStyle';
+import {bikeInterface} from '../../../interfaces/bike/bikeInterface';
+
 
 export const MotoCard = ({bikes}: {bikes: bikeInterface[]}) => {
   return (
@@ -12,7 +13,7 @@ export const MotoCard = ({bikes}: {bikes: bikeInterface[]}) => {
           justifyContent: 'space-between',
           alignItems: 'baseline',
           padding: 10,
-          borderBottomWidth: 1,
+          borderBottomWidth: 0.2,
         }}>
         <Text style={{fontSize: 20, fontWeight: 'bold'}}>Moto </Text>
         <Button title="ajouter" onPress={() => console.log('ajout de moto')} />
@@ -26,9 +27,10 @@ export const MotoCard = ({bikes}: {bikes: bikeInterface[]}) => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
+                padding: 5
               }}>
               <Image
-                style={{width: 200, height: 100}}
+                style={{width: 200, height: 100 , borderRadius: 5, marginEnd: 5}}
                 source={{
                   uri: bike.img_bike,
                 }}
