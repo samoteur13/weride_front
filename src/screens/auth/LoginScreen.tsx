@@ -33,7 +33,7 @@ const LoginScreen = () => {
       dispatch(addToken(loginUser.apiData.token));
       AsyncStorage.setItem('token', loginUser.apiData.token);
     }
-  }, [loginUser.isLoading]);
+  }, [loginUser]);
 
   const postLogin = async () => {
     setSend(true);
