@@ -29,4 +29,9 @@ export const cardStyle = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
+  button_between: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
 });

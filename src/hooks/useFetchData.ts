@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {UseFetchDataInterface} from '../interfaces/useFetchData/useFetchDataInterface';
+import {UseFetchDataInterface} from '../interfaces/useFetchData/UseFetchDataInterface';
 import {containsHtml} from '../utils/tools';
 import {urlApi} from '../utils/Constants';
 /*
@@ -37,7 +37,6 @@ export const useFetchData = ({
   }
 
   useEffect(() => {
-    console.log('je clique ' + send + url, method, dataSend);
     const fetchData = async () => {
       try {
         const requestOptions: any = {
@@ -76,8 +75,7 @@ export const useFetchData = ({
           });
           setApiData(data);
           setIsLoading(true);
-        }
-        if (!response.ok) {
+        } else if (!response.ok) {
           if (response.status === 422) {
             setMessageData({
               error: true,
@@ -93,10 +91,10 @@ export const useFetchData = ({
               },
             });
           }
-          setIsLoading(false);
+          setIsLoading(true);
         }
       } catch (error) {
-        console.log(error);
+        console.log("une erreur c'est produite => " + error);
         setMessageData({
           error: true,
           title: 'Erreur !',
@@ -108,7 +106,13 @@ export const useFetchData = ({
       }
     };
     if (send == true) {
+      console.log('je lance le traitemente des données =>' + send);
       fetchData();
+      console.log(
+        'Je traite les données' + apiData + ' ' + url,
+        method,
+        dataSend,
+      );
     }
   }, [send]);
 
