@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, TouchableNativeFeedback, Image} from 'react-native';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {resetToken} from '../../redux/slice/tokenSlice';
+import {resetToken} from '../../redux/slice/tokenSlice/tokenSlice';
 
 export const NavBarConnect = (props: any) => {
   const dispatch = useDispatch();

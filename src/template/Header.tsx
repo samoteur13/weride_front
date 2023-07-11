@@ -1,28 +1,27 @@
 import React from 'react';
-import { useSelector} from 'react-redux';
-import { NavBarDisconect } from './NavBar/NavBarDisconect';
-import { NavBarConnect } from './NavBar/NavBarConnect';
-import { useConnect } from '../services/AuthService';
-
+import {useSelector} from 'react-redux';
+import {NavBarDisconect} from './NavBar/NavBarDisconect';
+import {NavBarConnect} from './NavBar/NavBarConnect';
+import {AuthService} from '../services/AuthService';
+import {fetchUserProfile} from '../services/ProfilService';
 
 const Header = (props: any) => {
-  useConnect()
+  AuthService();
+  fetchUserProfile();
 
-  const tokenStore = useSelector((state: any) => state.token.value)
+  const tokenStore = useSelector((state: any) => state.token.value);
 
   return (
     <>
-      {tokenStore ? 
-        <NavBarConnect
-          actionProfil={props.actionProfil}
-        />
-        :
+      {tokenStore ? (
+        <NavBarConnect actionProfil={props.actionProfil} />
+      ) : (
         <NavBarDisconect
           actionResetPage={props.actionResetPage}
           actionConnexion={props.actionConnexion}
           actionInscription={props.actionInscription}
         />
-      }
+      )}
     </>
   );
 };

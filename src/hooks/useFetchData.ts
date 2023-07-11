@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {UseFetchDataInterface} from '../interfaces/useFetchData/UseFetchDataInterface';
 import {containsHtml} from '../utils/tools';
 import {urlApi} from '../utils/Constants';
+import axios from 'axios';
 /*
 Hook personaliser pour utiliser généraliser la méthode fetch
 pour être lancer le paramtre send doit etre a true
@@ -44,7 +45,7 @@ export const useFetchData = ({
           headers: headers,
         };
 
-        // ajoute le body si existe
+        // Ajouter le corps si nécessaire
         if (dataSend && typeof dataSend === 'object') {
           for (const property in dataSend) {
             if (containsHtml(dataSend[property])) {
@@ -58,43 +59,47 @@ export const useFetchData = ({
               });
             }
           }
-          requestOptions.body = JSON.stringify(dataSend);
+          requestOptions.data = JSON.stringify(dataSend);
         }
 
-        const response = await fetch(`${urlApi}${url}`, requestOptions);
-
-        const data = await response.json();
-
-        if (response.ok) {
-          setMessageData({
-            error: false,
-            title: 'Succès',
-            message: {
-              message: data['message'],
-            },
-          });
-          setApiData(data);
+        const response = await axios(`${urlApi}${url}`, requestOptions);
+        console.log(response.status);
+        if (response.status === 204) {
           setIsLoading(true);
-        } else if (!response.ok) {
-          if (response.status === 422) {
+        } else {
+          const data = response.data;
+          if (response.status === 200) {
             setMessageData({
-              error: true,
-              title: 'Erreur !',
-              message: data['errors'],
-            });
-          } else {
-            setMessageData({
-              error: true,
-              title: 'Erreur !',
+              error: false,
+              title: 'Succès',
               message: {
                 message: data['message'],
               },
             });
+            setApiData(data);
+            setIsLoading(true);
+          } else {
+            if (response.status === 422) {
+              setMessageData({
+                error: true,
+                title: 'Erreur !',
+                message: data['errors'],
+              });
+            } else {
+              setMessageData({
+                error: true,
+                title: 'Erreur !',
+                message: {
+                  message: data['message'],
+                },
+              });
+            }
+            setIsLoading(true);
           }
-          setIsLoading(true);
         }
+        setIsLoading(false);
       } catch (error) {
-        console.log("une erreur c'est produite => " + error);
+        console.log("une erreur c'est produite" + error);
         setMessageData({
           error: true,
           title: 'Erreur !',
@@ -105,14 +110,14 @@ export const useFetchData = ({
         setIsLoading(false);
       }
     };
-    if (send == true) {
-      console.log('je lance le traitemente des données =>' + send);
-      fetchData();
+
+    if (send === true) {
       console.log(
         'Je traite les données' + apiData + ' ' + url,
         method,
         dataSend,
       );
+      fetchData();
     }
   }, [send]);
 
