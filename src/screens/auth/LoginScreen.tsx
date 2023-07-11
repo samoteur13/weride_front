@@ -4,7 +4,7 @@ import Input from '../../components/input/Input';
 import {SafeAreaView, Button} from 'react-native';
 import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {addToken} from '../../redux/slice/tokenSlice';
+import {addToken} from '../../redux/slice/tokenSlice/tokenSlice';
 import {useFetchData} from '../../hooks/useFetchData';
 
 const LoginScreen = () => {
@@ -32,18 +32,13 @@ const LoginScreen = () => {
     if (loginUser.isLoading) {
       dispatch(addToken(loginUser.apiData.token));
       AsyncStorage.setItem('token', loginUser.apiData.token);
+      setSend(false);
     }
-  }, [loginUser]);
+  }, [loginUser.isLoading]);
 
   const postLogin = async () => {
     setSend(true);
   };
-
-  useEffect(() => {
-    if (send === true) {
-      setSend(false);
-    }
-  }, [send]);
 
   return (
     <SafeAreaView>

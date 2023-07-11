@@ -8,16 +8,18 @@ import {ContactBody} from '../../components/cards/bodyCards/ContactBody/ContactB
 import {Card} from '../../components/cards/Card/Card';
 
 export const ProfileUser = () => {
+  const profilStore = useSelector((state: any) => state.profil.value);
   const tokenStore = useSelector((state: any) => state.token.value);
   const [userData, setUserData] = useState<UserInterface>(Object);
   const [send, setSend] = useState(true);
+
   const [bikeDeleteParams, setBikeDeleteParams] = useState({
-    send: false,
+    sendDeleteBike: false,
     id: '',
   });
 
   const getUser = useFetchData({
-    url: 'api/profil',
+    url: 'api/userInfos',
     method: 'GET',
     token: tokenStore,
     send: send,
@@ -25,10 +27,8 @@ export const ProfileUser = () => {
 
   useEffect(() => {
     if (getUser.isLoading) {
-      setTimeout(() => {
-        setUserData(getUser.apiData);
-        setSend(false);
-      }, 2000);
+      setUserData(getUser.apiData);
+      setSend(false);
     }
   }, [getUser]);
 
@@ -36,17 +36,17 @@ export const ProfileUser = () => {
     url: `api/bikes/${bikeDeleteParams.id}`,
     method: 'DELETE',
     token: tokenStore,
-    send: bikeDeleteParams.send,
+    send: bikeDeleteParams.sendDeleteBike,
   });
 
   const submitDeleteBike = (id: string) => {
-    setBikeDeleteParams({...bikeDeleteParams, id: id, send: true});
-    setSend(true);
+    setBikeDeleteParams({...bikeDeleteParams, id: id, sendDeleteBike: true});
   };
 
   useEffect(() => {
-    if (bikeDeleteParams.send) {
-      setBikeDeleteParams({...bikeDeleteParams, send: false});
+    if (deleteBike.isLoading === true) {
+      setBikeDeleteParams({...bikeDeleteParams, id: '', sendDeleteBike: false});
+      setSend(true);
     }
   }, [deleteBike.isLoading]);
 
@@ -56,6 +56,11 @@ export const ProfileUser = () => {
         title="Voir la data"
         onPress={() => console.log(getUser.apiData)}
       />
+      <Button
+        title="Voir le profilStore"
+        onPress={() => console.log(profilStore)}
+      />
+
       <MotoCard bikes={userData.bikes} deleteBike={submitDeleteBike} />
       <Card title="Contact" content={<ContactBody userInfo={userData} />} />
       <Card title="Sortie" content={<Text>a venir</Text>} />

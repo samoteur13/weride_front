@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {addToken} from '../redux/slice/tokenSlice';
+import {addToken} from '../redux/slice/tokenSlice/tokenSlice';
 import {useDispatch, useSelector} from 'react-redux';
 
-export const useConnect = async () => {
+export const AuthService = async () => {
   const tokenStore = useSelector(state => state.token.value);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -12,7 +12,7 @@ export const useConnect = async () => {
     const token = await AsyncStorage.getItem('token');
     if (token !== null) {
       if (!tokenStore) {
-        dispatch(addToken(token))
+        dispatch(addToken(token));
       }
       navigation.navigate('profil');
     } else {
