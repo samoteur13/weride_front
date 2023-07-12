@@ -2,11 +2,12 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {addToken} from '../redux/slice/tokenSlice/tokenSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import { ScreenNavigationProp } from '../types/RootType';
 
 export const AuthService = async () => {
-  const tokenStore = useSelector(state => state.token.value);
+  const tokenStore = useSelector((state: any) => state.token.value);
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   try {
     const token = await AsyncStorage.getItem('token');
