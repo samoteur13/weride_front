@@ -8,31 +8,25 @@ import HomePage from './screens/home/HomePage';
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
 import {ProfileUser} from './screens/user/profile';
-import { BASES_COLORS } from './styles/color';
+import {RootStackParamListType} from './types/RootType';
 
-const Stack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamListType>();
 
 const App = () => {
-  const ref = React.useRef<any>(null);
   return (
     <Provider store={store}>
-      <NavigationContainer ref={ref}>
-        <Header
-          actionConnexion={() => ref.current && ref.current.navigate('Login')}
-          actionInscription={() =>
-            ref.current && ref.current.navigate('Register')
-          }
-          actionResetPage={() =>
-            ref.current && ref.current.navigate('HomePage')
-          }
-          actionProfil={() => ref.current && ref.current.navigate('profil')}
-        />
-        <Stack.Navigator initialRouteName="HomePage">
-          <Stack.Screen name="HomePage" component={HomePage} />
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={SubscribScreen} />
-          <Stack.Screen name="profil" component={ProfileUser} />
-        </Stack.Navigator>
+      <NavigationContainer>
+        <Header />
+        <RootStack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          initialRouteName="HomePage">
+          <RootStack.Screen name="HomePage" component={HomePage} />
+          <RootStack.Screen name="Login" component={LoginScreen} />
+          <RootStack.Screen name="Register" component={SubscribScreen} />
+          <RootStack.Screen name="profil" component={ProfileUser} />
+        </RootStack.Navigator>
       </NavigationContainer>
     </Provider>
   );

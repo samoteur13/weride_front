@@ -11,19 +11,7 @@ const Header = (props: any) => {
 
   const tokenStore = useSelector((state: any) => state.token.value);
 
-  return (
-    <>
-      {tokenStore ? (
-        <NavBarConnect actionProfil={props.actionProfil} />
-      ) : (
-        <NavBarDisconect
-          actionResetPage={props.actionResetPage}
-          actionConnexion={props.actionConnexion}
-          actionInscription={props.actionInscription}
-        />
-      )}
-    </>
-  );
+  return <>{tokenStore ? <NavBarConnect /> : <NavBarDisconect />}</>;
 };
 
 export default Header;
