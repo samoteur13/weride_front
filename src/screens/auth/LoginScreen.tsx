@@ -1,6 +1,6 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Input from '../../components/input/Input';
+import Input from '../../components/form/input/Input';
 import {SafeAreaView, Button} from 'react-native';
 import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
@@ -46,11 +46,13 @@ const LoginScreen = () => {
         placeholder="Email"
         onChangeText={handleEmail}
         value={login.email}
+        type='email'
       />
       <Input
         placeholder="password"
         onChangeText={handlePassword}
         value={login.password}
+        type='none'
       />
       <Button title="Connexion" onPress={() => postLogin()} />
     </SafeAreaView>

@@ -1,13 +1,13 @@
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type { RouteProp } from '@react-navigation/native';
 
 export type RootStackParamListType = {
   HomePage: undefined;
   Login: undefined;
   Register: undefined;
   profil: undefined;
-  BikeCreateUpdate: undefined;
+  BikeCreateUpdate: {bikeId: string};
   Profile: {userId: string};
-  Feed: {sort: 'latest' | 'top'} | undefined;
 };
 
 //donne les preperties des routes
@@ -17,6 +17,9 @@ export type RootPropsType = NativeStackScreenProps<RootStackParamListType>;
 export type ScreenNavigationProp = RootPropsType['navigation'];
 //donne le type params les navigation disponible de la route actuelle via useRoute<ProfileScreenRouteProp>()
 export type ScreenRouteProp = RootPropsType['route'];
+
+//Présise les paramètres de route pour BikeCreateUpdate
+export type BikeScreenRouteProp = RouteProp<RootStackParamListType, 'BikeCreateUpdate'>;
 
 // Exemple d'utilisation de  params route
 

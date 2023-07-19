@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, Button, View} from 'react-native';
 import {useState} from 'react';
-import Input from '../../components/input/Input';
-import { useFetchData } from '../../hooks/useFetchData';
+import Input from '../../components/form/input/Input';
+import {useFetchData} from '../../hooks/useFetchData';
 
 const SubscribScreen = () => {
   const [user, setUser] = useState({
@@ -12,16 +12,16 @@ const SubscribScreen = () => {
     lastname: '',
     pseudo: '',
   });
-  const [send, setSend] = useState(false)
+  const [send, setSend] = useState(false);
 
   const postUser = useFetchData({
-    url:'api/users',
-    method:'POST',
+    url: 'api/users',
+    method: 'POST',
     dataSend: user,
-    send: send
-  })
+    send: send,
+  });
 
-  const handleEmail = (text : string) => {
+  const handleEmail = (text: string) => {
     setUser({...user, email: text});
   };
   const handlePassword = (text: string) => {
@@ -38,14 +38,14 @@ const SubscribScreen = () => {
   };
 
   const Register = async () => {
-    setSend(true)
+    setSend(true);
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     if (send === true) {
-      setSend(false)
+      setSend(false);
     }
-  },[send])
+  }, [send]);
 
   return (
     <SafeAreaView>
@@ -54,26 +54,31 @@ const SubscribScreen = () => {
           placeholder="Email"
           onChangeText={handleEmail}
           value={user.email}
+          type="email"
         />
         <Input
           placeholder="password"
           onChangeText={handlePassword}
           value={user.password}
+          type="none"
         />
         <Input
           placeholder="firstname"
           onChangeText={handleFirstName}
           value={user.firstname}
+          type="none"
         />
         <Input
           placeholder="lastname"
           onChangeText={handleLastName}
           value={user.lastname}
+          type="none"
         />
         <Input
           placeholder="pseudo"
           onChangeText={handlePseudo}
           value={user.pseudo}
+          type="none"
         />
         <Button title="S'inscrice" onPress={() => Register()} />
       </View>

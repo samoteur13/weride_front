@@ -27,6 +27,7 @@ export const ProfileUser = () => {
 
   useEffect(() => {
     if (getUser.isLoading) {
+      console.log(getUser.apiData)
       setUserData(getUser.apiData);
       setSend(false);
     }
