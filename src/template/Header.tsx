@@ -5,7 +5,7 @@ import {NavBarConnect} from './NavBar/NavBarConnect';
 import {AuthService} from '../services/AuthService';
 import {fetchUserProfile} from '../services/ProfilService';
 
-const Header = (props: any) => {
+const Header = () => {
   AuthService();
   fetchUserProfile();
 

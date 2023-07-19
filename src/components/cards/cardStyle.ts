@@ -17,7 +17,6 @@ export const cardStyle = StyleSheet.create({
   },
   middle: {
     margin: 5,
-    flex: 0.3,
     backgroundColor: 'white',
     borderWidth: 0.2,
     borderRadius: 5,

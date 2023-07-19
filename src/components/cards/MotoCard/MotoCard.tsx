@@ -2,6 +2,8 @@ import React from 'react';
 import {Text, View, Button, Image} from 'react-native';
 import {cardStyle} from '../cardStyle';
 import {bikeInterface} from '../../../interfaces/bike/bikeInterface';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNavigationProp} from '../../../types/RootType';
 
 export const MotoCard = ({
   bikes,
@@ -10,6 +12,7 @@ export const MotoCard = ({
   bikes: bikeInterface[];
   deleteBike: any;
 }) => {
+  const navigation = useNavigation<ScreenNavigationProp>();
   return (
     <View style={cardStyle.middle}>
       <View
@@ -24,7 +27,9 @@ export const MotoCard = ({
         <Button
           title="ajouter"
           color="green"
-          onPress={() => console.log('ajout de moto')}
+          onPress={() =>
+            navigation.navigate<any>('BikeCreateUpdate', {bikeId: ''})
+          }
         />
       </View>
       {bikes &&
@@ -46,7 +51,7 @@ export const MotoCard = ({
                     marginEnd: 5,
                   }}
                   source={{
-                    uri: bike.img_bike,
+                    uri: bike.img_bike ?  bike.img_bike : 'https://cdn4.louis.de/r/4f02f576d96ee911b5de0d1f9d4f07b747efb28f/de-bspecial-ktm-125-duke-img-00-1200x752.jpg',
                   }}
                 />
                 <Text>
@@ -56,7 +61,11 @@ export const MotoCard = ({
               <View style={cardStyle.button_between}>
                 <Button
                   title="modifier"
-                  onPress={() => console.log('modifier moto')}
+                  onPress={() =>
+                    navigation.navigate<any>('BikeCreateUpdate', {
+                      bikeId: bike.id,
+                    })
+                  }
                 />
                 <Button
                   title="suprrimer"
