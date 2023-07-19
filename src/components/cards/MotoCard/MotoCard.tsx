@@ -51,7 +51,7 @@ export const MotoCard = ({
                     marginEnd: 5,
                   }}
                   source={{
-                    uri: bike.img_bike,
+                    uri: bike.img_bike ?  bike.img_bike : 'https://cdn4.louis.de/r/4f02f576d96ee911b5de0d1f9d4f07b747efb28f/de-bspecial-ktm-125-duke-img-00-1200x752.jpg',
                   }}
                 />
                 <Text>
@@ -61,7 +61,11 @@ export const MotoCard = ({
               <View style={cardStyle.button_between}>
                 <Button
                   title="modifier"
-                  onPress={() => console.log('modifier moto')}
+                  onPress={() =>
+                    navigation.navigate<any>('BikeCreateUpdate', {
+                      bikeId: bike.id,
+                    })
+                  }
                 />
                 <Button
                   title="suprrimer"
