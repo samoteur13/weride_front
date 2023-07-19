@@ -3,11 +3,7 @@ import {StyleSheet, TextInput} from 'react-native';
 import {InputInterface} from '../../../interfaces/form/InputInterface';
 
 const Input = ({placeholder, onChangeText, value, type}: InputInterface) => {
-  useEffect(() => {
-    console.log(type);
-  }, []);
-
-  const stringType = 'none'
+  const stringType = 'none';
   return (
     <TextInput
       style={styles.input}

@@ -1,20 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, SafeAreaView} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {BikeScreenRouteProp} from '../../types/RootType';
 import {Card} from '../../components/cards/Card/Card';
 import Input from '../../components/form/input/Input';
-import { useFetchData } from '../../hooks/useFetchData';
+import {useFetchData} from '../../hooks/useFetchData';
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNavigationProp} from '../../types/RootType';
 
 export const BikeCreateUpdate = () => {
   const {params} = useRoute<BikeScreenRouteProp>();
+  const navigation = useNavigation<ScreenNavigationProp>();
+  const userStore = useSelector((state: any) => state.profil.value);
+  const tokenStore = useSelector((state: any) => state.token.value);
+  const userId = `/api/users/${userStore.id}`;
+  const [send, setSend] = useState(false);
   const {bikeId} = params;
   const [bike, setBike] = useState({
-    idUser: 21,
-    name: '',
-    power: 0,
-    imgBike:
+    name: 'ma moto de test',
+    power: 2000,
+    img_bike:
       'https://images.caradisiac.com/images/8/6/5/5/198655/S1-moto-electrique-damon-ca-cartonne-731272.jpg',
+    user: userId,
   });
 
   const handleName = (text: string) => {
@@ -24,15 +32,26 @@ export const BikeCreateUpdate = () => {
     setBike({...bike, power: text});
   };
   const handleUrl = (text: string) => {
-    setBike({...bike, imgBike: text});
+    setBike({...bike, img_bike: text});
   };
 
   const bike_create_update = useFetchData({
-    url:'api/bikes',
+    url: 'api/bikes',
     method: 'POST',
+    token: tokenStore,
     dataSend: bike,
-    send: false
-  })
+    send: send,
+  });
+
+  useEffect(() => {
+    if (bike_create_update.isLoading) {
+      navigation.navigate('profil');
+    }
+  }, [bike_create_update.isLoading]);
+
+  useEffect(() => {
+    send && setSend(false);
+  }, [send]);
 
   return (
     <SafeAreaView
@@ -41,9 +60,9 @@ export const BikeCreateUpdate = () => {
         justifyContent: 'center',
       }}>
       <Button
-        title="test data"
+        title="testData"
         onPress={() => {
-          console.log(bike);
+          console.log('toto');
         }}
       />
       <Card
@@ -58,15 +77,21 @@ export const BikeCreateUpdate = () => {
             />
             <Input
               placeholder="Puissance"
-              value={bike.power}
+              value={bike.power.toString()}
               onChangeText={handlePower}
               type="numeric"
             />
             <Input
               placeholder="Lien vers votre image"
-              value={bike.imgBike}
+              value={bike.img_bike}
               onChangeText={handleUrl}
-              type="none"
+              type="url"
+            />
+            <Button
+              title="créer"
+              onPress={() => {
+                setSend(true);
+              }}
             />
           </>
         }

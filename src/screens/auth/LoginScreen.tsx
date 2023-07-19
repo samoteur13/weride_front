@@ -10,8 +10,8 @@ import {useFetchData} from '../../hooks/useFetchData';
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const [login, setUser] = useState({
-    email: 'leon99@roux.com',
-    password: 'leon99@roux.com',
+    email: 'paul.roger@louis.com',
+    password: 'paul.roger@louis.com',
   });
   const [send, setSend] = useState(false);
   const loginUser = useFetchData({
@@ -36,6 +36,12 @@ const LoginScreen = () => {
     }
   }, [loginUser.isLoading]);
 
+  useEffect(() => {
+    if (!send) {
+      setSend(false);
+    }
+  }, [send]);
+
   const postLogin = async () => {
     setSend(true);
   };
@@ -46,13 +52,13 @@ const LoginScreen = () => {
         placeholder="Email"
         onChangeText={handleEmail}
         value={login.email}
-        type='email'
+        type="email"
       />
       <Input
         placeholder="password"
         onChangeText={handlePassword}
         value={login.password}
-        type='none'
+        type="none"
       />
       <Button title="Connexion" onPress={() => postLogin()} />
     </SafeAreaView>

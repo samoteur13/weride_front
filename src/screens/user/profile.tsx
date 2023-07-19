@@ -6,12 +6,19 @@ import {UserInterface} from '../../interfaces/user/userInterface';
 import {useFetchData} from '../../hooks/useFetchData';
 import {ContactBody} from '../../components/cards/bodyCards/ContactBody/ContactBody';
 import {Card} from '../../components/cards/Card/Card';
+import {useFocusEffect} from '@react-navigation/native';
 
 export const ProfileUser = () => {
   const profilStore = useSelector((state: any) => state.profil.value);
   const tokenStore = useSelector((state: any) => state.token.value);
   const [userData, setUserData] = useState<UserInterface>(Object);
   const [send, setSend] = useState(true);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setSend(true);
+    }, []),
+  );
 
   const [bikeDeleteParams, setBikeDeleteParams] = useState({
     sendDeleteBike: false,
@@ -27,7 +34,6 @@ export const ProfileUser = () => {
 
   useEffect(() => {
     if (getUser.isLoading) {
-      console.log(getUser.apiData)
       setUserData(getUser.apiData);
       setSend(false);
     }
