@@ -26,7 +26,7 @@ export const ProfileUser = () => {
   });
 
   const getUser = useFetchData({
-    url: 'api/userInfos',
+    url: 'api/me/details',
     method: 'GET',
     token: tokenStore,
     send: send,

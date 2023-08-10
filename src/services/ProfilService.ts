@@ -8,7 +8,7 @@ export const fetchUserProfile = () => {
   const [send, setSend] = useState(false);
   const tokenStore = useSelector((state : any) => state.token.value);
   const getUser = useFetchData({
-    url: 'api/profil',
+    url: 'api/me',
     method: 'GET',
     token: tokenStore,
     send: send,
