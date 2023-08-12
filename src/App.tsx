@@ -10,6 +10,8 @@ import {Provider} from 'react-redux';
 import {ProfileUser} from './screens/user/profile';
 import {RootStackParamListType} from './types/RootType';
 import {BikeCreateUpdate} from './screens/bikes/BikeCreateUpdate';
+import {Events} from './screens/events/Events';
+import {EventCreateUpdate} from './screens/events/EventCreateUpdate';
 
 const RootStack = createNativeStackNavigator<RootStackParamListType>();
 
@@ -27,6 +29,11 @@ const App = () => {
           <RootStack.Screen name="Login" component={LoginScreen} />
           <RootStack.Screen name="Register" component={SubscribScreen} />
           <RootStack.Screen name="profil" component={ProfileUser} />
+          <RootStack.Screen name="events" component={Events} />
+          <RootStack.Screen
+            name="EventCreateUpdate"
+            component={EventCreateUpdate}
+          />
           <RootStack.Screen
             name="BikeCreateUpdate"
             component={BikeCreateUpdate}

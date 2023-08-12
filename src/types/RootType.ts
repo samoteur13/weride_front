@@ -6,6 +6,8 @@ export type RootStackParamListType = {
   Login: undefined;
   Register: undefined;
   profil: undefined;
+  events: undefined;
+  EventCreateUpdate: undefined;
   BikeCreateUpdate: {bikeId: string};
   Profile: {userId: string};
 };
