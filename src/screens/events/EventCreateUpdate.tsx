@@ -1,46 +1,43 @@
-import React from 'react';
-import {Text, View} from 'react-native';
-import MapView from 'react-native-maps';
-
+import React, {useEffect, useRef, useState} from 'react';
+import {View} from 'react-native';
+import {MyMaps} from './MyMaps';
+import {LocationInput} from './LocationInput';
 
 export const EventCreateUpdate = () => {
-  const myPlace = {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'Point',
-          coordinates: [64.165329, 48.844287],
-        },
-      },
-    ],
+  const [location, setLocation] = useState({
+    city: '',
+    additional_adress: '',
+    latidute: 0.0,
+    longitude: 0.0,
+  });
+
+  const handleLocationSelect = (data: any, details: any) => {
+    // console.log('Selected location:', data, details);
+    console.log(data, details);
+    const {description} = data;
+    const city = details.vicinity;
+    const {lat, lng} = details.geometry.location;
+    setLocation({
+      ...location,
+      latidute: lat,
+      longitude: lng,
+      additional_adress: description,
+      city: city,
+    });
   };
+
+  useEffect(() => {
+    console.log('la localisation =>', location);
+  }, [location]);
+
   return (
-    <View>
-      <Text style={{color: 'red', textAlign: 'center', fontSize: 20}}>
-        Ajouter ou modifier une sortie moto en construction
-      </Text>
-      <MapView
-        style={{backgroundColor: 'red', height: 400, width: 400}}
-        initialRegion={{
-          latitude: 43.317325,
-          longitude: 5.397128,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        paddingAdjustmentBehavior={'automatic'}
-        userLocationCalloutEnabled={true}
-        showsUserLocation={true}
-        followsUserLocation={true}
-        moveOnMarkerPress={true}
-        showsMyLocationButton
-        toolbarEnabled
-        onMarkerPress={(e) => console.log('toto')}	
-        provider='google'
-        
-      />
+    <View style={{flex: 1}}>
+      <View style={{flex: 0.1, zIndex: 99999}}>
+        <LocationInput handleLocationSelect={handleLocationSelect} />
+      </View>
+      <View style={{flex: 1}}>
+        <MyMaps />
+      </View>
     </View>
   );
 };
