@@ -26,6 +26,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({
       query={{
         key: KEY_GOOGLE_MAPS,
         language: 'fr',
+        components: 'country:fr',
       }}
     />
   );
