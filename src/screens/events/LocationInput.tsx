@@ -9,7 +9,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({
 }) => {
   return (
     <GooglePlacesAutocomplete
-      placeholder="Recherche"
+      placeholder="Lieux"
       fetchDetails
       styles={{
         listView: {
@@ -26,6 +26,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({
       query={{
         key: KEY_GOOGLE_MAPS,
         language: 'fr',
+        components: 'country:fr',
       }}
     />
   );
