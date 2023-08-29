@@ -48,7 +48,7 @@ export const MyMaps = ({coordinates}: MyMapsProps) => {
 
   return (
     <MapView
-      style={{backgroundColor: 'red', height: 400, width: 400}}
+      style={{backgroundColor: 'red', height: 400, width: '100%'}}
       initialRegion={initialRegion}>
       {coordinates.length >= 1 &&
         coordinates.map((coordinate: any, index: any) => (

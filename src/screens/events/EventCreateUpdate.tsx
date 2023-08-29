@@ -1,12 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, View} from 'react-native';
 import {LocationInput} from './LocationInput';
-import {Text} from 'react-native';
 import {CoordinatesInterface} from './CoordinatesInterface';
 import {MyMaps} from './MyMaps';
+import {EnvetModal} from '../../components/Modals/EventModal';
 
 export const EventCreateUpdate = () => {
   const [coordinates, setCoordinates] = useState<CoordinatesInterface[]>([]);
+  const [send, setSend] = useState(false);
   const [location1, setLocation1] = useState({
     city: '',
     additional_adress: '',
@@ -18,6 +19,14 @@ export const EventCreateUpdate = () => {
     additional_adress: '',
     latidute: 0.0,
     longitude: 0.0,
+  });
+
+  const [trip, setTrip] = useState({
+    title: '',
+    start_date: new Date(),
+    end_date: new Date(),
+    type: '',
+    descrpition: '',
   });
 
   //origin
@@ -73,33 +82,40 @@ export const EventCreateUpdate = () => {
     console.log('les nouvelle coordoné', coordinates);
   }, [location1, location2, coordinates]);
 
+  useEffect(() => {
+    console.log(trip);
+  }, [trip]);
+
   return (
-    <View style={{flex: 1}}>
-      <View
-        style={{
-          flex: 0.2,
-          zIndex: 99999,
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <Text>Flag 1</Text>
-        <LocationInput handleLocationSelect={handleLocationSelect1} />
-      </View>
-      <View
-        style={{
-          flex: 0.2,
-          zIndex: 99999,
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <Text>Flag 2</Text>
-        <LocationInput handleLocationSelect={handleLocationSelect2} />
-      </View>
+    <>
       <View style={{flex: 1}}>
-        <MyMaps coordinates={coordinates} />
+        <View
+          style={{
+            flex: 0.2,
+            zIndex: 99999,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Text>Flag 1</Text>
+          <LocationInput handleLocationSelect={handleLocationSelect1} />
+        </View>
+        <View
+          style={{
+            flex: 0.2,
+            zIndex: 99999,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Text>Flag 2</Text>
+          <LocationInput handleLocationSelect={handleLocationSelect2} />
+        </View>
+        <View style={{flex: 1}}>
+          <MyMaps coordinates={coordinates} />
+        </View>
       </View>
-    </View>
+      <EnvetModal trip={trip} setTrip={setTrip} setSend={setSend} />
+    </>
   );
 };
