@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  Pressable,
-  View,
-} from 'react-native';
+import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import {InputDate} from '../form/input/InputDate';
 import Input from '../../components/form/input/Input';
 
@@ -18,16 +11,16 @@ export const EnvetModal = ({trip, setTrip, setSend}: any) => {
     setTrip({...trip, title: text});
   };
   const handleStart_date = (date: Date) => {
-    setTrip({...trip, start_date: date});
+    setTrip({...trip, startDate: date});
   };
   const handleEnd_date = (date: Date) => {
-    setTrip({...trip, end_date: date});
+    setTrip({...trip, endDate: date});
   };
   const handleType = (text: string) => {
     setTrip({...trip, type: text});
   };
   const handleDescription = (text: string) => {
-    setTrip({...trip, descrpition: text});
+    setTrip({...trip, description: text});
   };
 
   return (
@@ -49,13 +42,15 @@ export const EnvetModal = ({trip, setTrip, setSend}: any) => {
               type="text"
             />
             <InputDate
-              label={'Date de départ'}
-              value={trip.start_date}
+              title='Départ'
+              label={'start'}
+              value={trip.startDate}
               setValue={handleStart_date}
             />
             <InputDate
-              label={'Date de retour'}
-              value={trip.end_date}
+              title='Retour'
+              label={'back'}
+              value={trip.endDate}
               setValue={handleEnd_date}
             />
             <Input
@@ -67,7 +62,7 @@ export const EnvetModal = ({trip, setTrip, setSend}: any) => {
             <Input
               placeholder="description"
               onChangeText={handleDescription}
-              value={trip.descrpition}
+              value={trip.description}
               type="text"
             />
             <View
@@ -101,8 +96,7 @@ export const EnvetModal = ({trip, setTrip, setSend}: any) => {
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
-  },
+  centeredView: {},
   modalView: {
     top: 100,
     margin: 20,

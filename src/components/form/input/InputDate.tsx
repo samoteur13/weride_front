@@ -1,19 +1,24 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text} from 'react-native';
-import { InputDateInterface } from '../../../interfaces/form/InputDateInterface';
-
+import {InputDateInterface} from '../../../interfaces/form/InputDateInterface';
 import DatePicker from 'react-native-date-picker';
-export const InputDate = ({value, setValue, label}: InputDateInterface) => {
+import moment from 'moment';
+
+
+export const InputDate = ({value, setValue, title, label}: InputDateInterface) => {
   const [open, setOpen] = useState(false);
   return (
     <>
       <Text style={styleDate.dateInputForm} onPress={() => setOpen(true)}>
         {value
-          ? `${label} :` + value.toLocaleDateString()
-          : `${label} : jours/mois/années`}
+          ? `${label} :` + moment(value).format("YYYY-MM-DD HH:mm:ss")
+          : `${label} : jours/mois/années heure`}
       </Text>
       <DatePicker
+        title={title}
+        locale="fr"
         modal
+        mode="datetime"
         open={open}
         date={value}
         confirmText={'confirmer'}
