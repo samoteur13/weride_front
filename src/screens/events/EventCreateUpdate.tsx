@@ -4,8 +4,17 @@ import {LocationInput} from './LocationInput';
 import {CoordinatesInterface} from './CoordinatesInterface';
 import {MyMaps} from './MyMaps';
 import {EnvetModal} from '../../components/Modals/EventModal';
+import {useFetchData} from '../../hooks/useFetchData';
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNavigationProp} from '../../types/RootType';
+import moment from 'moment';
 
 export const EventCreateUpdate = () => {
+  const tokenStore = useSelector((state: any) => state.token.value);
+  const userStore = useSelector((state: any) => state.profil.value);
+  const navigation = useNavigation<ScreenNavigationProp>();
+  const userId = `/api/users/${userStore.id}`;
   const [coordinates, setCoordinates] = useState<CoordinatesInterface[]>([]);
   const [send, setSend] = useState(false);
   const [location1, setLocation1] = useState({
@@ -23,10 +32,32 @@ export const EventCreateUpdate = () => {
 
   const [trip, setTrip] = useState({
     title: '',
-    start_date: new Date(),
-    end_date: new Date(),
+    startDate: new Date(),
+    endDate: new Date(),
     type: '',
-    descrpition: '',
+    description: '',
+    user: userId,
+  });
+
+  //transform the date here so as not to change the date format of datePicker
+  const copyTrip_transformDate = {
+    ...trip,
+    startDate: moment(trip.startDate).format('YYYY-MM-DD HH:mm:ss'),
+    endDate: moment(trip.endDate).format('YYYY-MM-DD HH:mm:ss'),
+  };
+
+  const [httpParams, setParams] = useState({
+    url: 'api/trips',
+    method: 'POST',
+    send: false,
+  });
+
+  const trip_create_update = useFetchData({
+    url: httpParams.url,
+    method: httpParams.method,
+    token: tokenStore,
+    dataSend: copyTrip_transformDate,
+    send: send,
   });
 
   //origin
@@ -83,8 +114,17 @@ export const EventCreateUpdate = () => {
   }, [location1, location2, coordinates]);
 
   useEffect(() => {
-    console.log(trip);
-  }, [trip]);
+    if (send) {
+      console.log(copyTrip_transformDate);
+      setSend(!send);
+    }
+  }, [send]);
+
+  useEffect(() => {
+    if (trip_create_update.isLoading) {
+      navigation.navigate('profil');
+    }
+  }, [trip_create_update.isLoading]);
 
   return (
     <>
